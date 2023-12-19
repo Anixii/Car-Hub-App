@@ -26,4 +26,32 @@ export interface CarCardProps {
   model: string;
   transmission: string;
   year: number;
+} 
+export interface CarDetailsProps { 
+  isOpen: boolean, 
+  closeModal: () => void, 
+  car: CarCardProps
+}
+export interface FilterProps {
+  manufacturer?: string;
+  year?: number;
+  model?: string;
+  limit?: number;
+  fuel?: string;
+}
+
+
+export interface OptionProps {
+  title: string;
+  value: string;
+}
+
+export interface CustomFilterProps {
+  title: string;
+  options: OptionProps[];
+}
+
+export interface ShowMoreProps {
+  pageNumber: number;
+  isNext: boolean;
 }

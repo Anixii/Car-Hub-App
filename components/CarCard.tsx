@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { CarCardProps } from "@/types";
-import { calculateCarRent } from "@/utils"; 
+import { calculateCarRent, generateCarImageUrl } from "@/utils/index"; 
 import carModel from '../public/hero.png' 
 import wheel from '../public/steering-wheel.svg'
 import tire from '../public/tire.svg'
 import gas from '../public/gas.svg' 
 import rightIcon from '../public/right-arrow.svg'
-import { CustomButton } from "./index";
+import { CarDetails, CustomButton } from "./index";
 interface CarCardpropsType {
   car: CarCardProps;
 }
@@ -26,7 +26,8 @@ const CarCard: React.FC<CarCardpropsType> = ({ car }: CarCardpropsType) => {
     make,
     model,
     transmission,
-  } = car; 
+  } = car;  
+  
   const carRent = calculateCarRent(city_mpg, year)
   return (
     <div className="car-card group">
@@ -45,7 +46,7 @@ const CarCard: React.FC<CarCardpropsType> = ({ car }: CarCardpropsType) => {
         </span>
       </p> 
       <div className="relative w-full h-40 my-3 object-contain"> 
-        <Image src={carModel} alt="Car" fill priority className="object-contain"  /> 
+        <Image src={generateCarImageUrl(car)} alt="Car" fill priority className="object-contain"  /> 
       </div>
         <div className="relative flex group: w-full mt-2">
             <div className="flex text-gray w-full justify-between group-hover:invisible">
@@ -72,11 +73,12 @@ const CarCard: React.FC<CarCardpropsType> = ({ car }: CarCardpropsType) => {
                 <CustomButton title="View More" 
                 containerStyles="w-full  py=[16px] rounded-full bg-primary-blue" 
                 textStyles='text-white text-[14px] leading-[17px] font-bold '
-                rightIcon={rightIcon}
+                rightIcon={rightIcon} 
                 handleClick={() => setIsOpen(true)}
-                />
+                /> 
             </div>
-        </div>
+        <CarDetails isOpen={isOpen} closeModal={() => setIsOpen(false)} car={car}/>
+        </div> 
     </div>
   );
 };
